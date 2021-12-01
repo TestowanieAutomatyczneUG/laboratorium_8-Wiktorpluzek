@@ -47,59 +47,56 @@ class TestAgeCalc(unittest.TestCase):
         self.temp = AgeCalc
 
     @parameterized.expand([
-            (("Ziemia", 1000000000), 31.69),
-            (("Merkury", 1000000000), 131.57),
-            (("Wenus", 1000000000), 51.51),
-            (("Mars", 1000000000), 16.85),
-            (("Jowisz", 1000000000), 2.67),
+            ("Ziemia", 1000000000, 31.69),
+            ("Merkury", 1000000000, 131.57),
+            ("Wenus", 1000000000, 51.51),
+            ("Mars", 1000000000, 16.85),
+            ("Jowisz", 1000000000, 2.67)
     ])
 
-    def test_parameterized(self, planet, expectedOutput):
-        self.assertEqual(self.temp.AgeCalc(planet, expectedOutput))
+    def test_parameterized(self, planet, sekundy, expectedOutput):
+        self.assertEqual(self.temp.age(planet,sekundy) , expectedOutput)
 
     @parameterized.expand([
-        ("Marms",),
-        ("abc",),
-        (123,),
-        (48.2,),
-        (False,),
-        (None,)
+            ("Ziaa", 1000000000),
+            ("Meeury", 1000000000),
+            ("Wesus", 1000000000),
+            ("Mars", None),
+            ("Jowisz", [])
     ])
 
-    def test_parameterized_exceptions(self, exception):
-        self.assertRaises(Exception, self.tmp.game, exception)
+    def test_parameterized_exceptions(self, planet, sekundy):
+        self.assertRaises(Exception, self.temp.age, planet, sekundy)
 
-@parameterized_class(('num', 'expectedOutput'), [
-    (5, "Buzz"),
-    (3, "Fizz"),
-    (15, "FizzBuzz"),
-    (-15, "FizzBuzz"),
-    (13, 13),
-    (-16, -16)
-])
+@parameterized_class(('planet', 'age', 'expectedOutput'), [
+            ("Ziemia", 1000000000, 31.69),
+            ("Merkury", 1000000000, 131.57),
+            ("Wenus", 1000000000, 51.51),
+            ("Mars", 1000000000, 16.85),
+            ("Jowisz", 1000000000, 2.67)
+    ])
 
-class TestFizzBuzzClass(unittest.TestCase):
+class TestAgeCalcClass(unittest.TestCase):
     def setUp(self):
-        self.tmp = FizzBuzz()
+        self.temp = AgeCalc
 
     def test_parameterized_class(self):
-        self.assertEqual(self.tmp.game(self.num), self.expectedOutput)
+        self.assertEqual(self.temp.age(self.planet, self.age), self.expectedOutput)
 
-@parameterized_class(('exception'), [
-    ("3",),
-    ([1, 2, 3],),
-    ({},),
-    (99.9999,),
-    (False,),
-    (None,)
-])
+@parameterized_class(('planet', 'age'), [
+            ("Ziaa", 1000000000),
+            ("Meeury", 1000000000),
+            ("Wesus", 1000000000),
+            ("Mars", None),
+            ("Jowisz", [])
+    ])
 
-class TestFizzBuzzClassException(unittest.TestCase):
+class TestAgeCalcClassException(unittest.TestCase):
     def setUp(self):
-        self.tmp = FizzBuzz()
+        self.temp = AgeCalc
 
     def test_parameterized_class_exceptions(self):
-        self.assertRaises(Exception, self.tmp.game, self.exception)
+        self.assertRaises(Exception, self.temp.age, self.planet, self.age)
 
 if __name__ == '__main__':
     unittest.main()
